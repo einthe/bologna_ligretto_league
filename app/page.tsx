@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import Background from "./components/background2";
+import Background from "./components/backgrounds/background3";
+
 
 export default function Home() {
   return (
