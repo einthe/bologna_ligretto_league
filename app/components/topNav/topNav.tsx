@@ -47,8 +47,19 @@ export default function TopNav() {
   }, []);
 
   return (
-    <header className={styles.topnav} ref={rootRef as any}>
-      <nav className={styles.navInner} aria-label="Primary">
+    <>
+      <div
+        className={styles.topnavBackdrop}
+        aria-hidden="true"
+        style={{
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
+          background: "rgba(0,0,0,0.2)",
+          // borderBottom: "1px solid rgba(255,255,255,0.25)",
+        }}
+      />
+      <header className={styles.topnav} ref={rootRef as any}>
+        <nav className={styles.navInner} aria-label="Primary">
         <Link className={styles.brand} href="/" aria-label="Home">
           <Image src={logo} alt="" width={36} height={36} priority></Image>
         </Link>
@@ -109,7 +120,8 @@ export default function TopNav() {
           <button className={styles.iconBtn} aria-label="Search">⌕</button>
           <button className={styles.iconBtn} aria-label="Bag">👜</button>
         </div> */}
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   );
 }
