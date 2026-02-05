@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import styles from "./topNav.module.css";
-import logo from "@/app/images/BLL_Logo.png";
+import logo from "@/app/graphics/images/logos/BLL_Logo.png";
 
 type NavItem = { label: string; href: string };
 
@@ -68,9 +68,10 @@ export default function TopNav() {
           
           <Link href="#" className={styles.link}>News</Link>
           <Link href="#" className={styles.link}>Rankings</Link>
+          <Link href="players" className={styles.link}>Players</Link>
           
           {/* Dropdown */}
-          <div className={styles.dropdown}>
+          {/* <div className={styles.dropdown}>
             <button
               type="button"
               className={styles.ddTrigger}
@@ -81,7 +82,7 @@ export default function TopNav() {
               onMouseEnter={() => setOpen(true)}
             >
               Players
-            </button>
+            </button> */}
 
             {/* “Apple-like” fixed panel under the bar */}
             {/* <div
@@ -109,7 +110,7 @@ export default function TopNav() {
                 </div>
               </div>
             </div> */}
-          </div>
+          {/* </div> */}
 
           <Link href="/hall_of_fame" className={styles.link}>Hall of Fame</Link>
           <Link href="#" className={styles.link}>Merchandise</Link>
