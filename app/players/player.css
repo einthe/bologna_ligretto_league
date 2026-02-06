@@ -11,6 +11,7 @@
   display: grid;
   justify-items: center;
   gap: 10px;
+  transition: transform 180ms ease;
 }
 
 .avatar {
@@ -23,6 +24,7 @@
   overflow: hidden;
   padding: 6px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
 .avatar img {
@@ -32,6 +34,16 @@
   border-radius: 9999px;
   border: 3px solid rgba(255, 255, 255, 0.95);
   display: block;
+  transition: transform 180ms ease;
+}
+
+.player:hover .avatar {
+  transform: scale(1.08);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+}
+
+.player:hover .avatar img {
+  transform: scale(1.03);
 }
 
 .playerName {

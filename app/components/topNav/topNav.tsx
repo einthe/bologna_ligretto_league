@@ -61,14 +61,14 @@ export default function TopNav() {
       <header className={styles.topnav} ref={rootRef as any}>
         <nav className={styles.navInner} aria-label="Primary">
         <Link className={styles.brand} href="/" aria-label="Home">
-          <Image src={logo} alt="" width={36} height={36} priority></Image>
+          <Image src={logo} alt="" width={48} height={48} priority />
         </Link>
 
         <div className={styles.links}>
           
-          <Link href="#" className={styles.link}>News</Link>
-          <Link href="#" className={styles.link}>Rankings</Link>
-          <Link href="players" className={styles.link}>Players</Link>
+          <Link href="/news" className={styles.link}>News</Link>
+          <Link href="/rankings" className={styles.link}>Rankings</Link>
+          <Link href="/players" className={styles.link}>Players</Link>
           
           {/* Dropdown */}
           {/* <div className={styles.dropdown}>
@@ -113,8 +113,8 @@ export default function TopNav() {
           {/* </div> */}
 
           <Link href="/hall_of_fame" className={styles.link}>Hall of Fame</Link>
-          <Link href="#" className={styles.link}>Merchandise</Link>
-          <Link href="#" className={styles.link}>About</Link>
+          <Link href="/merchandise" className={styles.link}>Merchandise</Link>
+          <Link href="/about" className={styles.link}>About</Link>
         </div>
 
         {/* <div className={styles.actions}>

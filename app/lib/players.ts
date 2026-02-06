@@ -1,6 +1,7 @@
 import type { Player } from "@/app/types/player";
 
 export const andrea: Player = {
+  id: "andrea",
   name: "Andrea",
   age: 112,
   height: 147,
@@ -16,6 +17,7 @@ export const andrea: Player = {
 };
 
 export const einar: Player = {
+  id: "einar",
   name: "Einar",
   age: 23,
   height: 180,
@@ -31,6 +33,7 @@ export const einar: Player = {
 };
 
 export const kaisla: Player = {
+  id: "kaisla",
   name: "Kaisla",
   age: 23,
   height: 168,
@@ -46,6 +49,7 @@ export const kaisla: Player = {
 };
 
 export const neal: Player = {
+  id: "neal",
   name: "Neal",
   age: 21,
   height: 178,
@@ -61,6 +65,7 @@ export const neal: Player = {
 };
 
 export const shiori: Player = {
+  id: "shiori",
   name: "Shiori",
   age: 21,
   height: 161,
@@ -76,6 +81,7 @@ export const shiori: Player = {
 };
 
 export const zhangjia: Player = {
+  id: "zhangjia",
   name: "Zhangjia",
   age: 20,
   height: 160,
@@ -98,3 +104,13 @@ export const players: Player[] = [
   shiori,
   zhangjia,
 ];
+
+export function getPlayerById(id?: string) {
+  if (!id) return undefined;
+  const normalized = id.trim().toLowerCase();
+  return players.find(
+    (p) =>
+      p.id.toLowerCase() === normalized ||
+      p.name.toLowerCase() === normalized
+  );
+}

@@ -1,6 +1,6 @@
 :root{
-    --nav-h: 44px;
-    --max: 580px;
+    --nav-h: 64px;
+    --max: 680px;
     --text: rgba(255,255,255,.88);
     /* --text: white; */
     /* --muted: rgba(0,0,0,.72); */
@@ -42,7 +42,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    font: 12px/1.2 system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif;
+    /* font: 12px/1.2 system-ui, -apple-system, "SF Pro Text", "Segoe UI", Roboto, Arial, sans-serif; */
     color: var(--text);
   }
   
@@ -50,10 +50,16 @@
     text-decoration: none;
     color: var(--text);
     font-size: 16px;
-    width: 24px;
+    width: 48px;
+    height: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: transform 180ms ease;
+  }
+
+  .brand:hover{
+    transform: scale(1.08);
   }
   
   .links{

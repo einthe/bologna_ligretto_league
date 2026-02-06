@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import Background from "./components/backgrounds/background3";
+import logo from "@/app/graphics/images/logos/BLL_Logo.png";
 
 
 export default function Home() {
@@ -8,6 +9,14 @@ export default function Home() {
     <main>
       <div className={styles.main}>
         <Background />
+        {/* <div className={styles.hero_text}>
+          <h1>
+            Welcome to
+          </h1>
+        </div> */}
+        <div className={styles.hero_logo}>
+          <Image src={logo} alt="" width={400} height={400} priority />
+        </div>
       </div>
     </main>
   );
