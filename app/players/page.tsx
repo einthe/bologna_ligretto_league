@@ -4,6 +4,7 @@ import styles from "@/app/page.module.css";
 import { players } from "@/app/lib/players";
 import type { Player } from "@/app/types/player";
 import "./player.css";
+import Background from "@/app/components/backgrounds/background2";
 
 function PlayerAvatar({ player }: { player: Player }) {
   if (!player.active || player.retired) {
@@ -36,7 +37,7 @@ export default function Players() {
   return (
     <main>
       <div className={styles.main}>
-        {/* <Background /> */}
+        <Background />
         <div className="playersGrid">
           {players.map((p) => (
             <PlayerAvatar key={p.name} player={p} />

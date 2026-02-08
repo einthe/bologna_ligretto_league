@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import Background from "./components/backgrounds/background3";
+import Background from "./components/backgrounds/background";
 import logo from "@/app/graphics/images/logos/BLL_Logo.png";
 
 

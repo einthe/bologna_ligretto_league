@@ -1,128 +1,152 @@
 export default function Background() {
-    // Ligretto card colors - more dispersed placement
-    const cards = [
-      {
-        color: "bg-red-500",
-        number: "1",
-        rotation: -12,
-        x: "8%",
-        y: "12%",
-      },
-      {
-        color: "bg-blue-500",
-        number: "3",
-        rotation: 8,
-        x: "78%",
-        y: "8%",
-      },
-      {
-        color: "bg-yellow-400",
-        number: "5",
-        rotation: -5,
-        x: "15%",
-        y: "75%",
-      },
-      {
-        color: "bg-green-500",
-        number: "7",
-        rotation: 15,
-        x: "85%",
-        y: "68%",
-      },
-      {
-        color: "bg-red-500",
-        number: "2",
-        rotation: -20,
-        x: "42%",
-        y: "25%",
-      },
-      {
-        color: "bg-blue-500",
-        number: "10",
-        rotation: 6,
-        x: "62%",
-        y: "55%",
-      },
-      {
-        color: "bg-yellow-400",
-        number: "4",
-        rotation: -8,
-        x: "25%",
-        y: "45%",
-      },
-      {
-        color: "bg-green-500",
-        number: "8",
-        rotation: 18,
-        x: "88%",
-        y: "35%",
-      },
-      {
-        color: "bg-red-500",
-        number: "6",
-        rotation: -15,
-        x: "5%",
-        y: "58%",
-      },
-      {
-        color: "bg-blue-500",
-        number: "9",
-        rotation: 12,
-        x: "50%",
-        y: "82%",
-      },
-      {
-        color: "bg-yellow-400",
-        number: "1",
-        rotation: 3,
-        x: "35%",
-        y: "8%",
-      },
-      {
-        color: "bg-green-500",
-        number: "3",
-        rotation: -18,
-        x: "68%",
-        y: "88%",
-      },
-    ];
+    // Generate card positions in a circular pattern
+    const cards = Array.from({ length: 40 }).map((_, i) => {
+      const angle = (i / 40) * Math.PI * 2;
+      const radius = 250 + (i % 3) * 100;
+      const x = 500 + Math.cos(angle) * radius;
+      const y = 500 + Math.sin(angle) * radius;
+      const rotation = (angle * 180) / Math.PI + 90;
+  
+      return {
+        x,
+        y,
+        rotation,
+        scale: 0.7 + (i % 3) * 0.15,
+      };
+    });
   
     return (
-      <div className="size-full relative overflow-hidden bg-[#00B050]">
-        {/* Ligretto grid pattern */}
-        <div
-          className="absolute inset-0 opacity-10"
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          minHeight: "100vh",
+          overflow: "hidden",
+          zIndex: 0,
+          pointerEvents: "none",
+        }}
+      >
+        {/* SVG for circular perspective grid made of cards */}
+        <svg
           style={{
-            backgroundImage: `
-              linear-gradient(to right, white 1px, transparent 1px),
-              linear-gradient(to bottom, white 1px, transparent 1px)
-            `,
-            backgroundSize: "40px 40px",
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
           }}
-        />
-        {/* Floating Ligretto cards */}
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            className={`absolute w-24 h-32 ${card.color} rounded-lg shadow-lg opacity-15`}
-            style={{
-              left: card.x,
-              top: card.y,
-              transform: `rotate(${card.rotation}deg)`,
-            }}
-          >
-            <div className="w-full h-full flex items-center justify-center text-white text-6xl font-bold">
-              {card.number}
-            </div>
-          </div>
-        ))}
+          preserveAspectRatio="xMidYMid slice"
+          viewBox="0 0 1000 1000"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            {/* Radial gradient from center */}
+            <radialGradient id="bgGradient" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stopColor="#00cc5e" />
+              <stop offset="100%" stopColor="#008a3d" />
+            </radialGradient>
+          </defs>
   
-        {/* Centered content area for future use */}
-        <div className="relative z-10 flex items-center justify-center w-full h-full">
-          <div className="text-center">
-            {/* Content can be added here */}
-          </div>
+          {/* Background */}
+          <rect width="1000" height="1000" fill="url(#bgGradient)" />
+  
+          {/* Circular grid lines made of card shapes */}
+          <g opacity="0.3">
+            {/* Concentric circles of cards */}
+            {[
+              50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650,
+            ].map((radius, ringIndex) => (
+              <g key={`ring-${ringIndex}`}>
+                {Array.from({
+                  length: Math.max(8, Math.floor(radius / 15)),
+                }).map((_, i) => {
+                  const count = Math.max(8, Math.floor(radius / 15));
+                  const angle = (i / count) * Math.PI * 2;
+                  const x = 500 + Math.cos(angle) * radius;
+                  const y = 500 + Math.sin(angle) * radius;
+                  const rotation = (angle * 180) / Math.PI + 90;
+  
+                  return (
+                    <rect
+                      key={`card-${ringIndex}-${i}`}
+                      x={x - 20}
+                      y={y - 28}
+                      width="40"
+                      height="56"
+                      fill="#004d26"
+                      rx="3"
+                      opacity={0.6 - ringIndex * 0.04}
+                      transform={`rotate(${rotation} ${x} ${y})`}
+                    />
+                  );
+                })}
+              </g>
+            ))}
+  
+            {/* Radial lines made of cards */}
+            {Array.from({ length: 24 }).map((_, i) => {
+              const angle = (i / 24) * Math.PI * 2;
+  
+              return (
+                <g key={`radial-${i}`}>
+                  {[50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600].map(
+                    (distance, j) => {
+                      const x = 500 + Math.cos(angle) * distance;
+                      const y = 500 + Math.sin(angle) * distance;
+                      const rotation = (angle * 180) / Math.PI + 90;
+  
+                      return (
+                        <rect
+                          key={`radial-card-${i}-${j}`}
+                          x={x - 20}
+                          y={y - 28}
+                          width="40"
+                          height="56"
+                          fill="#005030"
+                          rx="3"
+                          opacity={0.5 - j * 0.04}
+                          transform={`rotate(${rotation} ${x} ${y})`}
+                        />
+                      );
+                    }
+                  )}
+                </g>
+              );
+            })}
+          </g>
+  
+          {/* Larger decorative cards scattered */}
+          {cards.slice(0, 15).map((card, i) => (
+            <rect
+              key={`decorative-${i}`}
+              x={card.x - 30}
+              y={card.y - 42}
+              width="60"
+              height="84"
+              fill={i % 3 === 0 ? "#006633" : i % 3 === 1 ? "#004d26" : "#005030"}
+              rx="4"
+              opacity={0.15}
+              transform={`rotate(${card.rotation} ${card.x} ${card.y}) scale(${card.scale})`}
+            />
+          ))}
+        </svg>
+  
+        {/* Content area */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 10,
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div style={{ textAlign: "center" }}>{/* Content can be added here */}</div>
         </div>
       </div>
     );
   }
+  

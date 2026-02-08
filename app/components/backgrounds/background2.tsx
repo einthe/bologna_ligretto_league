@@ -1,68 +1,131 @@
-export default function Background() {
-    const cards = [
-      { color: "#ef4444", number: "1", rotation: -12, x: "8%", y: "12%" },
-      { color: "#3b82f6", number: "3", rotation: 8, x: "78%", y: "8%" },
-      { color: "#facc15", number: "5", rotation: -5, x: "15%", y: "75%" },
-      { color: "#22c55e", number: "7", rotation: 15, x: "85%", y: "68%" },
-      { color: "#ef4444", number: "2", rotation: -20, x: "42%", y: "25%" },
-      { color: "#3b82f6", number: "10", rotation: 6, x: "62%", y: "55%" },
-      { color: "#facc15", number: "4", rotation: -8, x: "25%", y: "45%" },
-      { color: "#22c55e", number: "8", rotation: 18, x: "88%", y: "35%" },
-      { color: "#ef4444", number: "6", rotation: 10, x: "55%", y: "15%" },
-    ];
-  
-    return (
+// Seeded random number generator for consistent positions
+function seededRandom(seed: number) {
+  let value = seed;
+  return () => {
+    value = (value * 9301 + 49297) % 233280;
+    return value / 233280;
+  };
+}
+
+const rng = seededRandom(12345);
+
+// Generate consistent positions for lightning bolts
+const lightningBolts = Array.from({ length: 20 }, (_, i) => ({
+  id: i,
+  top: `${rng() * 100}%`,
+  left: `${rng() * 100}%`,
+  rotation: 180 + (rng() * 30 - 15),
+  scale: 0.5 + rng() * 0.5,
+  opacity: 0.15 + rng() * 0.25,
+}));
+
+// Generate consistent positions for rhombuses/parallelograms
+const shapes = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  top: `${rng() * 100}%`,
+  left: `${rng() * 80 + 10}%`,
+  rotation: rng() * 360,
+  scaleX: 0.9 + rng() * 0.8,
+  scaleY: 0.7 + rng() * 0.6,
+  opacity: 0.08 + rng() * 0.12,
+  isRhombus: rng() > 0.5,
+}));
+
+export default function App() {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        minHeight: "100vh",
+        overflow: "hidden",
+        zIndex: 0,
+        pointerEvents: "none",
+        backgroundColor: '#00b050',
+      }}
+    >
+      {/* Rhombuses and parallelograms */}
+      {shapes.map((shape) => (
+        <svg
+          key={`shape-${shape.id}`}
+          style={{
+            position: 'absolute',
+            top: shape.top,
+            left: shape.left,
+            transform: `rotate(${shape.rotation}deg) scale(${shape.scaleX}, ${shape.scaleY})`,
+            opacity: shape.opacity,
+            pointerEvents: 'none',
+          }}
+          width="120"
+          height="80"
+          viewBox="0 0 120 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {shape.isRhombus ? (
+            // Rhombus (stretched)
+            <path
+              d="M60 5 L115 40 L60 75 L5 40 Z"
+              fill="#1ac55f"
+              stroke="#2dd670"
+              strokeWidth="1.5"
+            />
+          ) : (
+            // Parallelogram (stretched with slanted angles)
+            <path
+              d="M30 15 L110 10 L90 70 L10 75 Z"
+              fill="#1ac55f"
+              stroke="#2dd670"
+              strokeWidth="1.5"
+            />
+          )}
+        </svg>
+      ))}
+
+      {/* Lightning bolts */}
+      {lightningBolts.map((bolt) => (
+        <svg
+          key={bolt.id}
+          style={{
+            position: 'absolute',
+            top: bolt.top,
+            left: bolt.left,
+            transform: `rotate(${bolt.rotation}deg) scale(${bolt.scale})`,
+            opacity: bolt.opacity,
+            pointerEvents: 'none',
+          }}
+          width="40"
+          height="60"
+          viewBox="0 0 40 60"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M20 2L8 26H18L16 58L32 24H22L20 2Z"
+            fill="#70e89d"
+            stroke="#8ffab3"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+        </svg>
+      ))}
+
+      {/* Content area */}
       <div
         style={{
-          position: "fixed",
-          inset: 0,
-          overflow: "hidden",
-          background: "#00B050",
-          zIndex: -1, // sits behind your page content
+          position: 'relative',
+          zIndex: 10,
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        {/* Grid */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.1,
-            backgroundImage: `
-              linear-gradient(to right, white 1px, transparent 1px),
-              linear-gradient(to bottom, white 1px, transparent 1px)
-            `,
-            backgroundSize: "40px 40px",
-          }}
-        />
-  
-        {/* Cards */}
-        {cards.map((card, index) => (
-          <div
-            key={index}
-            style={{
-              position: "absolute",
-              width: 96,
-              height: 128,
-              left: card.x,
-              top: card.y,
-              transform: `rotate(${card.rotation}deg)`,
-              background: card.color,
-              borderRadius: 12,
-              boxShadow: "0 10px 25px rgba(0,0,0,0.25)",
-              opacity: 0.15,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "white",
-              fontSize: 48,
-              fontWeight: 800,
-              userSelect: "none",
-            }}
-          >
-            {card.number}
-          </div>
-        ))}
+        {/* Your content goes here */}
       </div>
-    );
-  }
-  
+    </div>
+  );
+}

@@ -12,5 +12,11 @@
 }
 
 .hero_text {
-    
+    position: relative;
+    z-index: 1;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
 }

@@ -17,23 +17,13 @@ export function GoldFrame({ width = 600, height = 800, children }: GoldFrameProp
   const verticalStartOffset = (height - (dotsCountVertical - 1) * dotSpacing) / 2;
 
   return (
-    <div
-      style={{
-        position: "relative",
-        display: "inline-block",
-        width,
-        height,
-      }}
-    >
+    <div className="relative inline-block" style={{ width, height }}>
       <svg
         width={width}
         height={height}
         viewBox={`0 0 ${width} ${height}`}
         xmlns="http://www.w3.org/2000/svg"
-        style={{
-          position: "absolute",
-          inset: 0,
-        }}
+        className="absolute inset-0"
       >
         <defs>
           {/* Gold gradient */}
@@ -193,113 +183,64 @@ export function GoldFrame({ width = 600, height = 800, children }: GoldFrameProp
         <circle cx="30" cy="30" r="5" fill="url(#lightGoldGradient)" />
 
         {/* Corner ornaments - Top Right */}
-        <circle
-          cx={width - 30}
-          cy="30"
-          r="12"
-          fill="url(#goldGradient)"
-          stroke="url(#darkGoldGradient)"
-          strokeWidth="2"
-        />
+        <circle cx={width - 30} cy="30" r="12" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
         <circle cx={width - 30} cy="30" r="5" fill="url(#lightGoldGradient)" />
 
         {/* Corner ornaments - Bottom Left */}
-        <circle
-          cx="30"
-          cy={height - 30}
-          r="12"
-          fill="url(#goldGradient)"
-          stroke="url(#darkGoldGradient)"
-          strokeWidth="2"
-        />
+        <circle cx="30" cy={height - 30} r="12" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
         <circle cx="30" cy={height - 30} r="5" fill="url(#lightGoldGradient)" />
 
         {/* Corner ornaments - Bottom Right */}
-        <circle
-          cx={width - 30}
-          cy={height - 30}
-          r="12"
-          fill="url(#goldGradient)"
-          stroke="url(#darkGoldGradient)"
-          strokeWidth="2"
-        />
+        <circle cx={width - 30} cy={height - 30} r="12" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
         <circle cx={width - 30} cy={height - 30} r="5" fill="url(#lightGoldGradient)" />
 
         {/* Additional ornate details - top center */}
         <g transform={`translate(${width / 2}, 25)`}>
-          <ellipse
-            cx="0"
-            cy="0"
-            rx="25"
-            ry="15"
-            fill="url(#goldGradient)"
-            stroke="url(#darkGoldGradient)"
-            strokeWidth="2"
-          />
+          <ellipse cx="0" cy="0" rx="25" ry="15" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <path d="M -15,-5 Q 0,-15 15,-5" fill="none" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <circle cx="0" cy="0" r="4" fill="url(#lightGoldGradient)" />
         </g>
 
         {/* Additional ornate details - bottom center */}
         <g transform={`translate(${width / 2}, ${height - 25})`}>
-          <ellipse
-            cx="0"
-            cy="0"
-            rx="25"
-            ry="15"
-            fill="url(#goldGradient)"
-            stroke="url(#darkGoldGradient)"
-            strokeWidth="2"
-          />
+          <ellipse cx="0" cy="0" rx="25" ry="15" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <path d="M -15,5 Q 0,15 15,5" fill="none" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <circle cx="0" cy="0" r="4" fill="url(#lightGoldGradient)" />
         </g>
 
         {/* Additional ornate details - left center */}
         <g transform={`translate(25, ${height / 2})`}>
-          <ellipse
-            cx="0"
-            cy="0"
-            rx="15"
-            ry="25"
-            fill="url(#goldGradient)"
-            stroke="url(#darkGoldGradient)"
-            strokeWidth="2"
-          />
+          <ellipse cx="0" cy="0" rx="15" ry="25" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <path d="M -5,-15 Q -15,0 -5,15" fill="none" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <circle cx="0" cy="0" r="4" fill="url(#lightGoldGradient)" />
         </g>
 
         {/* Additional ornate details - right center */}
         <g transform={`translate(${width - 25}, ${height / 2})`}>
-          <ellipse
-            cx="0"
-            cy="0"
-            rx="15"
-            ry="25"
-            fill="url(#goldGradient)"
-            stroke="url(#darkGoldGradient)"
-            strokeWidth="2"
-          />
+          <ellipse cx="0" cy="0" rx="15" ry="25" fill="url(#goldGradient)" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <path d="M 5,-15 Q 15,0 5,15" fill="none" stroke="url(#darkGoldGradient)" strokeWidth="2" />
           <circle cx="0" cy="0" r="4" fill="url(#lightGoldGradient)" />
         </g>
 
         {/* Inner content area background */}
-        <rect x={frameWidth} y={frameWidth} width={innerWidth} height={innerHeight} fill="#2c1810" opacity="0.9" />
+        <rect
+          x={frameWidth}
+          y={frameWidth}
+          width={innerWidth}
+          height={innerHeight}
+          fill="#2c1810"
+          opacity="0.9"
+        />
       </svg>
 
       {/* Content area */}
       <div
+        className="absolute flex items-center justify-center"
         style={{
-          position: "absolute",
           left: frameWidth,
           top: frameWidth,
           width: innerWidth,
           height: innerHeight,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
         }}
       >
         {children}
